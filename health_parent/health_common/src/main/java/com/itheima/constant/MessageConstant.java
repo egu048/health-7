@@ -75,4 +75,6 @@ public interface MessageConstant {
     static final String ADD_USER_Faile = "添加用户数据失败";
     static final String GET_USER_SUCCESS = "获取用户数据成功";
     static final String GET_USER_Faile = "获取用户数据失败";
+    static final String DELETE_USER_FAIL = "删除用户失败";
+    static final String DELETE_USER_SUCCESS = "删除用户成功";
 }

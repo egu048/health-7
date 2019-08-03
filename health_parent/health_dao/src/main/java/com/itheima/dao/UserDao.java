@@ -57,4 +57,10 @@ public interface UserDao {
      * @param userId
      */
     void deleteUserAndRoleByUserId(Integer userId);
+    /**
+     * 根据id删除用户
+     * @param id
+     * @return
+     */
+    void deletById(int id);
 }

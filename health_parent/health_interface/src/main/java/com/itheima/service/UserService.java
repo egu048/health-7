@@ -45,4 +45,10 @@ public interface UserService {
      * @return
      */
     void update(User user, Integer[] roleIds);
+    /**
+     * 根据id删除用户
+     * @param id
+     * @return
+     */
+    void deleteById(int id);
 }

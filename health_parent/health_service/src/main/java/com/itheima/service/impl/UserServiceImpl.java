@@ -96,4 +96,15 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+    /**
+     * 根据id删除用户
+     * @param id
+     * @return
+     */
+    @Override
+    @Transactional
+    public void deleteById(int id) {
+        userDao.deleteUserAndRoleByUserId(id);
+        userDao.deletById(id);
+    }
 }

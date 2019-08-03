@@ -395,6 +395,29 @@
                 },
                 // 删除
                 handleDelete(row) {
+                    var id = row.id;
+                    this.$confirm('此操作将【永久删除】该查检项, 是否确定?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 点击了确定后执行的代码
+                        //确定，发送ajax请求删除，传递要删除ID
+                        // 传参的数量较少时可以用?
+                        // 数量较多，封装到json对象中
+                        axios.post('/user/deleteById.do?id=' + id).then(res => {
+                            this.$message({
+                                message: res.data.message,
+                                type: res.data.flag?'success':'error'
+                            });
+                            if(res.data.flag){
+                                // 刷新列表
+                                this.findPage();
+                            }
+                        })
+                    }).catch(() => {
+                        // 点击取消后执行的代码
+                    });
                 },
                 // 加载检查项的列表数据
                 loadCheckItemList(){

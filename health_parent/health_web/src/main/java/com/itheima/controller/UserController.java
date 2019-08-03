@@ -89,4 +89,15 @@ public class UserController {
         List<Integer> roleIds=userService.findroleIdsByUserId(id);
         return new Result(true,MessageConstant.GET_USER_SUCCESS,roleIds);
     }
+
+    /**
+     * 根据id删除用户
+     * @param id
+     * @return
+     */
+    @PostMapping("/deleteById")
+    public Result deleteById(int id){
+        userService.deleteById(id);
+        return new Result(true,MessageConstant.DELETE_USER_SUCCESS);
+    }
 }
