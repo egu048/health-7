@@ -35,7 +35,5 @@
         </property>
     </bean>
 
-    <!--注入redis-->
-    <import resource="classpath:spring-redis.xml"/>
 
 </beans>
