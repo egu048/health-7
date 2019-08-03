@@ -93,12 +93,12 @@
                                             <el-row>
                                                 <el-col :span="12">
                                                     <el-form-item label="角色名称">
-                                                        <el-input v-model="formData.code"/>
+                                                        <el-input v-model="formData.name"/>
                                                     </el-form-item>
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-form-item label="角色关键字">
-                                                        <el-input v-model="formData.name"/>
+                                                        <el-input v-model="formData.keyword"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
@@ -151,7 +151,7 @@
                                                 <tbody>
                                                 <tr v-for="m in tableMenuData">
                                                     <td>
-                                                        <input :id="m.id" v-model="permissionIds" type="checkbox" :value="m.id">
+                                                        <input :id="m.id" v-model="menuIds" type="checkbox" :value="m.id">
                                                     </td>
                                                     <td><label :for="m.id">{{m.name}}</label></td>
                                                     <td><label :for="m.id">{{m.linkUrl}}</label></td>
@@ -273,7 +273,7 @@
                     queryString:null,
                 },
                 permissionIds: [],//新建窗口权限对应的数据
-                menuIds: [],//新建窗口菜单对应数据
+                menuIds: [],//新建窗口权限对应的数据
 
                 dataList: [],//列表数据
                 formData: {},//表单数据

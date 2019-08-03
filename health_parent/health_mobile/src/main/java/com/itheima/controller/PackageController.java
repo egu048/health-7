@@ -69,5 +69,4 @@ public class PackageController {
         pcg.setImg(QiNiuUtil.DOMAIN + "/" +pcg.getImg());
         return new Result(true,MessageConstant.GET_SETMEAL_LIST_SUCCESS,pcg);
     }
-
 }
