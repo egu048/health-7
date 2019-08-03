@@ -15,9 +15,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/role")
-public class RolePermissionsController {
+public class RoleController {
     @Reference
-    private RoleService permissionsService;
+    private RoleService roleService;
 
     /**
      * 查询所有角色信息分页展示
@@ -26,7 +26,7 @@ public class RolePermissionsController {
      */
     @RequestMapping("/findAll")
     public PageResult findAll(@RequestBody QueryPageBean pageBean) {
-        PageResult<Role> pageResult = permissionsService.findPage(pageBean);
+        PageResult<Role> pageResult = roleService.findPage(pageBean);
         return pageResult;
     }
 
@@ -40,7 +40,7 @@ public class RolePermissionsController {
     @PostMapping("/add")
     public Result add(@RequestBody Role role, Integer[] permissionIds,Integer[] menuIds){
         // 调用套餐业务服务
-        permissionsService.add(role, permissionIds,menuIds);
+        roleService.add(role, permissionIds,menuIds);
         return new Result(true, MessageConstant.ADD_ROLE_SUCCESS);
     }
 
@@ -50,11 +50,11 @@ public class RolePermissionsController {
      */
     @GetMapping("/findMenuAndPermission")
     public Result findMenuAndPermission(){
-        List<Role> menu = permissionsService.findMenu();
-        List<Role> permission = permissionsService.findPermission();
+        List<Role> menu = roleService.findMenu();
+        List<Role> permission = roleService.findPermission();
         Map<String,List<Role>> map = new HashMap<>();
         map.put("permission",permission);
-        map.put("menuIds",menu);
+        map.put("menu",menu);
         return new Result(true, MessageConstant.QUERY_ROLE_SUCCESS,map);
     }
 
@@ -65,7 +65,7 @@ public class RolePermissionsController {
      */
     @GetMapping("/findRoleIdByAll")
     public Result findRoleIdByAll(int id){
-        Map<String,List<Integer>> map = permissionsService.findPermissionIdsMenuIdsByRoleId(id);
+        Map<String,List<Integer>> map = roleService.findPermissionIdsMenuIdsByRoleId(id);
         return new Result(true, MessageConstant.QUERY_ROLE_SUCCESS,map);
     }
 
@@ -79,7 +79,7 @@ public class RolePermissionsController {
     @PostMapping("/update")
     public Result update(@RequestBody Role role, Integer[] permissionIds,Integer[] menuIds){
         // 调用套餐业务服务
-        permissionsService.update(role, permissionIds,menuIds);
+        roleService.update(role, permissionIds,menuIds);
         return new Result(true, MessageConstant.UPDATE_ROLE_SUCCESS);
     }
 
@@ -90,7 +90,16 @@ public class RolePermissionsController {
      */
     @GetMapping("/delete")
     public Result delete(int id) {
-        permissionsService.deleteRole(id);
+        roleService.deleteRole(id);
         return new Result(true,MessageConstant.DELETE_ROLE_SUCCESS);
+    }
+    /**
+     * 获取所有角色信息
+     * @return
+     */
+    @GetMapping("/findAllToUser")
+    public Result findAllToUser(){
+        List<Role> roles=roleService.findAllToUser();
+        return new Result(true,MessageConstant.QUERY_ROLE_SUCCESS,roles);
     }
 }

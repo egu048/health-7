@@ -150,4 +150,12 @@ public class RoleServiceImpl implements RoleService {
     public void deleteRole(int id) {
         roleDao.deleteRole(id);
     }
+    /**
+     * 获取所有角色信息
+     * @return
+     */
+    @Override
+    public List<Role> findAllToUser() {
+        return roleDao.findAllToUser();
+    }
 }

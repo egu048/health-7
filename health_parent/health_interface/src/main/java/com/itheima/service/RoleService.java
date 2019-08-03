@@ -59,4 +59,10 @@ public interface RoleService {
     List<Role> findMenu();
 
     void deleteRole(int id);
+    /**
+     * 获取所有角色信息
+     * @return
+     */
+    List<Role> findAllToUser();
+
 }

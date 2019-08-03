@@ -33,4 +33,7 @@ public interface RoleDao {
     List<Integer> findPermissionIdsByRoleId(int roleId);
 
     void deleteRole(int id);
+
+    List<Role> findAllToUser();
+
 }

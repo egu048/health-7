@@ -71,5 +71,8 @@
     <delete id="deleteRole" parameterType="int">
         delete from t_role where id={id}
     </delete>
+    <select id="findAllToUser" resultType="Role">
+        select * from t_role
+    </select>
 
 </mapper>

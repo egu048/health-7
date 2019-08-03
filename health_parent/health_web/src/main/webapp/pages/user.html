@@ -100,19 +100,19 @@
                                             <el-row>
                                                 <el-col :span="12">
                                                     <el-form-item label="用户名">
-                                                        <el-input v-model="formData.code"/>
+                                                        <el-input v-model="formData.username"/>
                                                     </el-form-item>
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-form-item label="生日">
-                                                        <el-input v-model="formData.name"/>
+                                                        <el-input v-model="formData.birthday"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
                                             <el-row>
                                                 <el-col :span="12">
                                                     <el-form-item label="性别">
-                                                        <el-select v-model="formData.sex">
+                                                        <el-select v-model="formData.gender">
                                                             <el-option label="男" value="0"></el-option>
                                                             <el-option label="女" value="1"></el-option>
                                                         </el-select>
@@ -120,7 +120,7 @@
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-form-item label="联系电话">
-                                                        <el-input v-model="formData.helpCode"/>
+                                                        <el-input v-model="formData.telephone"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
@@ -178,19 +178,19 @@
                                             <el-row>
                                                 <el-col :span="12">
                                                     <el-form-item label="用户名">
-                                                        <el-input v-model="formData.code"/>
+                                                        <el-input v-model="formData.username"/>
                                                     </el-form-item>
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-form-item label="生日">
-                                                        <el-input v-model="formData.name"/>
+                                                        <el-input v-model="formData.birthday"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
                                             <el-row>
                                                 <el-col :span="12">
                                                     <el-form-item label="性别">
-                                                        <el-select v-model="formData.sex">
+                                                        <el-select v-model="formData.gender">
                                                             <el-option label="男" value="0"></el-option>
                                                             <el-option label="女" value="1"></el-option>
                                                         </el-select>
@@ -198,7 +198,7 @@
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-form-item label="联系电话">
-                                                        <el-input v-model="formData.helpCode"/>
+                                                        <el-input v-model="formData.telephone"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
@@ -303,7 +303,7 @@
                     if(this.roleIds.length == 0){
                         // 没有选检查项
                         this.$message({
-                            message: "没有选择检查项，不能提交",
+                            message: "没有选择角色，不能提交",
                             type: 'error'
                         });
                         return;
@@ -350,7 +350,7 @@
                     // 清除表单
                     this.resetForm();
                     // 加载检查项列表数据
-                    this.loadCheckItemList();
+                    this.loadRoleList();
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
@@ -366,7 +366,7 @@
                             // 回显数据
                             this.formData = res.data.data;
                             // 加载检查项列表数据
-                            this.loadCheckItemList();
+                            this.loadRoleList();
                             // 获取选中的检查项ID集合
                             axios.get('/user/findroleIdsByUserId.do?id=' + userId).then(res2 => {
                                 if(res.data.flag){
@@ -395,7 +395,7 @@
                 // 删除
                 handleDelete(row) {
                     var id = row.id;
-                    this.$confirm('此操作将【永久删除】该查检项, 是否确定?', '提示', {
+                    this.$confirm('此操作将【永久删除】该项, 是否确定?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -419,9 +419,9 @@
                     });
                 },
                 // 加载检查项的列表数据
-                loadCheckItemList(){
+                loadRoleList(){
                     //发送ajax请求，查询所有的检查项列表
-                    axios.get('/role/findAll.do').then(res => {
+                    axios.get('/role/findAllToUser.do').then(res => {
                         // 成功
                         if(res.data.flag){
                             this.tableData = res.data.data;
