@@ -43,4 +43,6 @@ public interface OrderSettingDao {
      * @return
      */
     OrderSetting findByOrderDate(String orderDate);
+
+    void clearBeforeThisMonth(String value);
 }

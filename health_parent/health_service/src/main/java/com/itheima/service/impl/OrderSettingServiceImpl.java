@@ -74,4 +74,9 @@ public class OrderSettingServiceImpl implements OrderSettingService {
             orderSettingDao.add(os);
         }
     }
+
+    @Override
+    public void clearBeforeThisMonth(String value) {
+        orderSettingDao.clearBeforeThisMonth(value);
+    }
 }

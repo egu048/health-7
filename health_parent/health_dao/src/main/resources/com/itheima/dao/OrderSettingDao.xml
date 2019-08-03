@@ -29,4 +29,8 @@
     <select id="findByOrderDate" parameterType="String" resultType="OrderSetting">
         select * From t_ordersetting where orderDate=#{orderDate}
     </select>
+    <!--删除这个月之前的数据-->
+    <delete id="clearBeforeThisMonth" parameterType="String" >
+        delete  from t_orderSetting where orderDate &lt;= #{value}
+    </delete>
 </mapper>

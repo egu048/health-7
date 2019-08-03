@@ -25,4 +25,6 @@ public interface OrderSettingService {
      * @param number
      */
     void editNumberByDate(String orderDate, int number) throws ParseException;
+
+    void clearBeforeThisMonth(String value);
 }
