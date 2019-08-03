@@ -66,4 +66,28 @@ public class MemberServiceImpl implements MemberService {
         result.put("memberCount",memberCount);
         return result;
     }
+
+    /**
+     * 会员男女占比
+     * @return
+     */
+    @Override
+    public  List<Map<String,Object>> getPackageReportBySex() {
+        //获取sexCount,集合
+        List<Map<String,Object>> sexCount = memberDao.getPackageReportBySex();
+
+        return sexCount;
+    }
+
+
+    /**
+     * 会员年龄占比
+     * @return
+     */
+    @Override
+    public List<String> findBirthdays() {
+        //查询所有会员的生日集合
+        List<String> birthdays =  memberDao.findBirthdays();
+        return birthdays;
+    }
 }

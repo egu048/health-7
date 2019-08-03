@@ -69,6 +69,8 @@ public interface MessageConstant {
     static final String DELETE_MENU_SUCCESS = "删除用户菜单成功";
     static final String GET_MENU_FAIL = "获取当前登录用户菜单失败";
     static final String GET_MEMBER_NUMBER_REPORT_SUCCESS = "获取会员统计数据成功";
+    static final String GET_MEMBER_NUMBER_REPORT_SEX_SUCCESS = "获取会员男女占比数据成功";
+    static final String GET_MEMBER_NUMBER_REPORT_AGE_SUCCESS = "获取会员年龄占比数据成功";
     static final String GET_MEMBER_NUMBER_REPORT_FAIL = "获取会员统计数据失败";
     static final String GET_PACKAGE_COUNT_REPORT_SUCCESS = "获取套餐统计数据成功";
     static final String GET_PACKAGE_COUNT_REPORT_FAIL = "获取套餐统计数据失败";

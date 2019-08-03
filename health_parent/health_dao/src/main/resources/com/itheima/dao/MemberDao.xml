@@ -95,4 +95,15 @@
     <select id="findMemberTotalCount" resultType="int">
         select count(id) from t_member
     </select>
+
+    <!--查询男女占比图-->
+    <select id="getPackageReportBySex" resultType="map">
+         SELECT COUNT(1) as value,IFNULL(sex,0) as name FROM t_member GROUP BY sex
+    </select>
+
+    <!--所有会员的生日集合-->
+    <select id="findBirthdays" resultType="string">
+        SELECT birthday FROM t_member
+    </select>
+
 </mapper>
