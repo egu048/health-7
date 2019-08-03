@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.dao.MenuDao">
+
+    <insert id="add" parameterType="CheckGroup">
+      <selectKey resultType="int" order="AFTER" keyProperty="id">
+          select last_insert_id()
+      </selectKey>
+        insert into t_menu (name,linkUrl,path,priority,description,icon,parentMenuId)
+        values(#{name},#{linkUrl},#{path},#{priority},#{description},#{icon},#{parentMenuId})
+    </insert>
+
+    <select id="findPageByMenu" parameterType="String" resultType="Menu">
+        select * from t_menu
+        <where>
+            <if test="null != value and value.length > 0">
+                name like #{value}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="int" resultType="Menu">
+        select * from t_menu where id = #{id}
+    </select>
+
+    <update id="update" parameterType="Menu">
+        update t_menu set name=#{name},linkUrl=#{linkUrl},path=#{path},priority=#{priority},description=#{description},icon=#{icon},parentMenuId=#{parentMenuId} where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from t_menu where id = #{id}
+    </delete>
+
+    <select id="getMenuByRoleId" parameterType="int" resultType="Menu">
+        SELECT * FROM t_menu WHERE id IN (SELECT menu_id FROM t_role_menu WHERE role_id=#{id}) AND LEVEL=#{level}
+        order by id
+    </select>
+    <select id="findAll" resultType="Menu">
+        select * from t_menu
+    </select>
+</mapper>

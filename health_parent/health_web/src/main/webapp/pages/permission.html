@@ -16,10 +16,10 @@
     <body class="hold-transition">
         <div id="app">
             <div class="content-header">
-                <h1>用户管理<small>权限管理</small></h1>
+                <h1>系统设置<small>权限管理</small></h1>
                 <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+                    <el-breadcrumb-item>系统设置</el-breadcrumb-item>
                     <el-breadcrumb-item>权限管理</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
@@ -34,7 +34,7 @@
                         <el-table-column type="index" align="center" label="序号"></el-table-column>
                         <el-table-column prop="name" label="权限名称" align="center"></el-table-column>
                         <el-table-column prop="keyword" label="权限关键字" align="center"></el-table-column>
-                        <el-table-column prop="description" label="描述" align="center"></el-table-column>
+                        <el-table-column prop="description" label="权限描述" align="center"></el-table-column>
                         <el-table-column label="操作" align="center">
                             <!--格式化输出-->
                             <template slot-scope="scope">
@@ -218,7 +218,7 @@
                     //row: 这一行记录 permission {}
                     // 要删除的检查项编号
                     var id = row.id;
-                    this.$confirm('此操作将【永久删除】该查检项, 是否确定?', '提示', {
+                    this.$confirm('此操作将【永久删除】该项, 是否确定?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'

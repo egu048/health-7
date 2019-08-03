@@ -2,7 +2,6 @@ package com.itheima.service;
 
 import com.itheima.pojo.Member;
 
-import java.util.List;
 import java.util.Map;
 
 public interface MemberService {
@@ -22,8 +21,9 @@ public interface MemberService {
     /**
      * 会员数量统计
      * @return
+     * @param map
      */
-    Map<String,Object> getMemberReport();
+    Map<String,Object> getMemberReport(Map<String, String> map);
 
     /**
      * 会员男女占比

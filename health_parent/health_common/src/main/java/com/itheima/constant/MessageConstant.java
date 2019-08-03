@@ -65,7 +65,8 @@ public interface MessageConstant {
     static final String ORDER_FAIL = "预约失败";
     static final String GET_USERNAME_SUCCESS = "获取当前登录用户名称成功";
     static final String GET_USERNAME_FAIL = "获取当前登录用户名称失败";
-    static final String GET_MENU_SUCCESS = "获取当前登录用户菜单成功";
+    static final String GET_MENU_SUCCESS = "获取菜单信息成功";
+    static final String DELETE_MENU_SUCCESS = "删除用户菜单成功";
     static final String GET_MENU_FAIL = "获取当前登录用户菜单失败";
     static final String GET_MEMBER_NUMBER_REPORT_SUCCESS = "获取会员统计数据成功";
     static final String GET_MEMBER_NUMBER_REPORT_SEX_SUCCESS = "获取会员男女占比数据成功";
@@ -77,4 +78,18 @@ public interface MessageConstant {
     static final String GET_BUSINESS_REPORT_FAIL = "获取运营统计数据失败";
     static final String GET_PACKAGE_LIST_SUCCESS = "查询套餐列表数据成功";
     static final String GET_PACKAGE_LIST_FAIL = "查询套餐列表数据失败";
+    static final String QUERY_USER_SUCCESS = "查询用户列表数据成功";
+    static final String QUERY_USER_Faile = "查询用户列表数据失败";
+    static final String ADD_USER_SUCCESS = "添加用户数据成功";
+    static final String ADD_USER_Faile = "添加用户数据失败";
+    static final String GET_USER_SUCCESS = "获取用户数据成功";
+    static final String GET_USER_Faile = "获取用户数据失败";
+    static final String DELETE_USER_FAIL = "删除用户失败";
+    static final String DELETE_USER_SUCCESS = "删除用户成功";
+    static final String ADD_ROLE_SUCCESS = "添加角色信息成功";
+    static final String QUERY_ROLE_SUCCESS = "查询角色信息成功";
+    static final String UPDATE_ROLE_SUCCESS = "修改角色信息成功";
+    static final String DELETE_ROLE_SUCCESS = "删除角色成功";
+    String GET_SETMEAL_COUNT_REPORT_SUCCESS = "获取套餐信息成功";
+    String GET_SETMEAL_LIST_SUCCESS = "获取套餐详情成功";
 }
