@@ -31,4 +31,12 @@
     <delete id="delete" parameterType="int">
         delete from t_menu where id = #{id}
     </delete>
+
+    <select id="getMenuByRoleId" parameterType="int" resultType="Menu">
+        SELECT * FROM t_menu WHERE id IN (SELECT menu_id FROM t_role_menu WHERE role_id=#{id}) AND LEVEL=#{level}
+        order by id
+    </select>
+    <select id="findAll" resultType="Menu">
+        select * from t_menu
+    </select>
 </mapper>

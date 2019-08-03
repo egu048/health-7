@@ -112,36 +112,35 @@
                                         </el-form>
                                     </el-tab-pane>
                                     <el-tab-pane label="权限信息" name="second">
-                                        <div class="checkScrol">
-                                            <table class="datatable">
-                                                <thead>
-                                                <tr>
-                                                    <th>id</th>
-                                                    <th>名称</th>
-                                                    <th>权限关键字</th>
-                                                    <th>描述</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr v-for="p in permissionIds">
-                                                    <td>
-                                                        <input :id="p.id" v-model="permissionIds" type="checkbox" :value="p.id">
-                                                    </td>
-                                                    <td><label :for="p.id">{{p.id}}</label></td>
-                                                    <td><label :for="p.id">{{p.name}}</label></td>
-                                                    <td><label :for="p.id">{{p.keyword}}</label></td>
-                                                    <td><label :for="p.id">{{p.description}}</label></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </el-tab-pane>
+                                    <div class="checkScrol">
+                                        <table class="datatable">
+                                            <thead>
+                                            <tr>
+                                                <th>选择</th>
+                                                <th>名称</th>
+                                                <th>权限关键字</th>
+                                                <th>描述</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="p in tablePermissionData">
+                                                <td>
+                                                    <input :id="p.id" v-model="permissionIds" type="checkbox" :value="p.id">
+                                                </td>
+                                                <td><label :for="p.id">{{p.name}}</label></td>
+                                                <td><label :for="p.id">{{p.keyword}}</label></td>
+                                                <td><label :for="p.id">{{p.description}}</label></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </el-tab-pane>
                                     <el-tab-pane label="菜单信息" name="last">
                                         <div class="checkScrol">
                                             <table class="datatable">
                                                 <thead>
                                                 <tr>
-                                                    <th>id</th>
+                                                    <th>选择</th>
                                                     <th>菜单名称</th>
                                                     <th>访问路径</th>
                                                     <th>路径</th>
@@ -150,18 +149,15 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr v-for="m in menuIds">
+                                                <tr v-for="m in tableMenuData">
                                                     <td>
-                                                        <input :id="m.id" v-model="menuIds" type="checkbox" :value="m.id">
+                                                        <input :id="m.id" v-model="permissionIds" type="checkbox" :value="m.id">
                                                     </td>
-                                                    <td><label :for="m.id">{{m.id}}</label></td>
                                                     <td><label :for="m.id">{{m.name}}</label></td>
                                                     <td><label :for="m.id">{{m.linkUrl}}</label></td>
                                                     <td><label :for="m.id">{{m.path}}</label></td>
                                                     <td><label :for="m.id">{{m.priority}}</label></td>
-                                                    <td><label :for="m.id">{{m.description}}</label></td>
                                                     <td><label :for="m.id">{{m.icon}}</label></td>
-                                                    <td><label :for="m.id">{{m.parentMenuId}}</label></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -239,10 +235,10 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr v-for="c in tableData">
+													<tr v-for="c in tablePermissionData">
 														<td>
                                                             <!--checkitemIds 有值，就会构选上, id有值且与value的值相同-->
-															<input :id="c.id" v-model="checkitemIds" type="checkbox" :value="c.id">
+															<input :id="c.id" v-model="menuIds" type="checkbox" :value="c.id">
 														</td>
 														<td><label :for="c.id">{{c.code}}</label></td>
 														<td><label :for="c.id">{{c.name}}</label></td>
@@ -282,7 +278,8 @@
                 dataList: [],//列表数据
                 formData: {},//表单数据
 
-                tableData:[],//新增和编辑表单中对应的检查项列表数据
+                tablePermissionData:[],//新增和编辑表单中对应的检查项列表数据
+                tableMenuData:[],//新增和编辑表单中对应的检查项列表数据
                 dialogFormVisible: false,//控制添加窗口显示/隐藏
                 dialogFormVisible4Edit:false//控制编辑窗口显示/隐藏
             },
@@ -399,22 +396,34 @@
                     // 获取角色的编号
                     var roleId = row.id;
                     axios.get("/role/delete?id="+roleId).then((result)=>{
+                        this.$message({
+                            message: res.data.message,
+                            type: res.data.flag?'success':'error'
+                        });
                         if (result.data.flag) {
-                            this.$message({
-                                message: "成功删除",
-                                type: 'success'
-                            })
+                            this.findPage();
                         }
                     });
                 },
                 // 加载菜单与权限信息
                 loadMenuAndPermission(){
                     //发送ajax请求，查询所有的菜单与权限信息
-                    axios.get('/role/findMenuAndPermission.do').then(res => {
+                    axios.get('/permission/findAll.do').then(res => {
                         // 成功
                         if(res.data.flag){
-                            this.permissionIds = res.data.data.permission;
+                            this.tablePermissionData = res.data.data
                             this.menuIds = res.data.data.findRoleIdByAll;
+                        }else{
+                            this.$message({
+                                message: res.data.message,
+                                type: 'error'
+                            })
+                        }
+                    });
+                    axios.get('/menu/findAll.do').then(res => {
+                        // 成功
+                        if(res.data.flag){
+                            this.tableMenuData = res.data.data;
                         }else{
                             this.$message({
                                 message: res.data.message,

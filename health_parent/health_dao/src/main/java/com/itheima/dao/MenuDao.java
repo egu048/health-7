@@ -2,6 +2,10 @@ package com.itheima.dao;
 
 import com.github.pagehelper.Page;
 import com.itheima.pojo.Menu;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.LinkedHashSet;
+import java.util.List;
 
 public interface MenuDao {
 
@@ -19,4 +23,9 @@ public interface MenuDao {
     void update(Menu menu);
 
     void delete(int id);
+
+    LinkedHashSet<Menu> getMenuByRoleId(@Param("id") int id, @Param("level") int level);
+
+    List<Menu> findAll();
+
 }

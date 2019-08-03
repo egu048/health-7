@@ -9,6 +9,7 @@ import com.itheima.pojo.Menu;
 import com.itheima.service.MenuService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -46,5 +47,21 @@ public class MenuController {
     public Result delete(int id){
        menuService.delete(id);
        return new Result(true,MessageConstant.DELETE_MENU_SUCCESS);
+    }
+    @GetMapping("/getMenuByRoleId")
+    public Result getMenuByRoleId(String id){
+
+        LinkedHashSet<Menu> menus = menuService.getMenuByRoleId(Integer.valueOf(id));
+        return new Result(true, MessageConstant.GET_MENU_SUCCESS, menus);
+    }
+
+    /**
+     * 获取所有菜单信息
+     * @return
+     */
+    @GetMapping("/findAll")
+    public Result findAll(){
+       List<Menu> menus=menuService.findAll();
+       return new Result(true,MessageConstant.GET_MENU_SUCCESS,menus);
     }
 }

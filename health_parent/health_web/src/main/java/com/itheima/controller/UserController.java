@@ -7,10 +7,12 @@ import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
 import com.itheima.pojo.User;
 import com.itheima.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -18,6 +20,13 @@ import java.util.List;
 public class UserController {
     @Reference
     private UserService userService;
+    @GetMapping("/getUser")
+    public Result getUser(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(username);
+        //request.getSession().setAttribute("user", user);
+        return new Result(true, MessageConstant.GET_USERNAME_SUCCESS,user);
+    }
     /**
      * 根据用户名获取用户信息
      * @return

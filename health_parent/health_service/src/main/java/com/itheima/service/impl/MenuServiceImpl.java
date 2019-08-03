@@ -11,6 +11,9 @@ import com.itheima.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import java.util.LinkedHashSet;
+import java.util.List;
+
 
 @Service(interfaceClass = MenuService.class)
 public class MenuServiceImpl implements MenuService {
@@ -52,4 +55,26 @@ public class MenuServiceImpl implements MenuService {
         menuDao.delete(id);
     }
 
+    @Override
+    public LinkedHashSet<Menu> getMenuByRoleId(int id) {
+        LinkedHashSet<Menu> menuone = menuDao.getMenuByRoleId(id,1);
+        LinkedHashSet<Menu> menutwo = menuDao.getMenuByRoleId(id,2);
+        for (Menu menuo : menuone) {
+            for (Menu menut : menutwo) {
+                if (menut.getParentMenuId().equals(menuo.getId())){
+                    List<Menu> children = menuo.getChildren();
+                    children.add(menut);
+                }
+            }
+        }
+        return menuone;
+    }
+    /**
+     * 获取所有菜单信息
+     * @return
+     */
+    @Override
+    public List<Menu> findAll() {
+        return menuDao.findAll();
+    }
 }
