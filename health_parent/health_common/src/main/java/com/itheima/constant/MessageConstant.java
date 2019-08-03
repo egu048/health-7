@@ -11,6 +11,12 @@ public interface MessageConstant {
     static final String ADD_CHECKITEM_FAIL = "新增检查项失败";
     static final String EDIT_CHECKITEM_FAIL = "编辑检查项失败";
     static final String EDIT_CHECKITEM_SUCCESS = "编辑检查项成功";
+    static final String EDIT_PERMISSION_SUCCESS = "编辑权限成功";
+    static final String ADD_PERMISSION_SUCCESS = "新增权限成功";
+    static final String DELETE_PERMISSION_SUCCESS = "删除权限成功";
+    static final String EDIT_PERMISSION_FAIL = "编辑权限失败";
+    static final String QUERY_PERMISSION_SUCCESS = "查询权限成功";
+    static final String QUERY_PERMISSION_FAIL = "查询权限失败";
     static final String QUERY_CHECKITEM_SUCCESS = "查询检查项成功";
     static final String QUERY_CHECKITEM_FAIL = "查询检查项失败";
     static final String UPLOAD_SUCCESS = "上传成功";
