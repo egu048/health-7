@@ -24,4 +24,17 @@ public interface MemberService {
      * @return
      */
     Map<String,Object> getMemberReport();
+
+    /**
+     * 会员男女占比
+     * @return
+     */
+    List<Map<String,Object>> getPackageReportBySex();
+
+
+    /**
+     * 会员年龄占比
+     * @return
+     */
+    List<String> findBirthdays();
 }

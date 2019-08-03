@@ -6,6 +6,7 @@ import com.itheima.entity.Result;
 import com.itheima.service.MemberService;
 import com.itheima.service.PackageService;
 import com.itheima.service.ReportService;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,10 +20,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/report")
@@ -141,5 +141,124 @@ public class ReportController {
         }
 
 
+    }
+
+    /**
+     * 会员男女占比图
+     * @return
+     */
+    @GetMapping("/getPackageReportBySex")
+    public Result getPackageReportBySex(){
+        //{sexNames, sexCount}
+        //1.获取sexNames集合
+        List<String> sexNames = new ArrayList<>();
+        sexNames.add("男性");
+        sexNames.add("女性");
+        sexNames.add("未定义");
+        //2.获取sexCount,集合
+        // 调用memberService完成报表数据的查询 [{value, name}]
+        List<Map<String,Object>> sexCount = memberService.getPackageReportBySex();
+        if (sexCount != null && sexCount.size()>0) {
+            for (Map<String, Object> sexmap : sexCount) {
+                Integer count = Integer.valueOf((String) sexmap.get("name")) ;
+                if (count ==1) {
+                    sexmap.put("name",sexNames.get(0));
+                }else if (count==2){
+                    sexmap.put("name",sexNames.get(1));
+                }else{
+                    sexmap.put("name",sexNames.get(2));
+                }
+            }
+        }
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("sexNames",sexNames);
+        result.put("sexCount",sexCount);
+
+        return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SEX_SUCCESS, result);
+    }
+
+
+    /**
+     * 会员男女占比图
+     * @return
+     */
+    @GetMapping("/getPackageReportByAge")
+    public Result getPackageReportByAge(){
+        //{ageNames,ageCount}
+        //1.获取sexNames集合
+        List<String> ageNames = new ArrayList<>();
+        ageNames.add("0-18岁");
+        ageNames.add("18-30岁");
+        ageNames.add("30-45岁");
+        ageNames.add("45岁以上");
+
+        //年龄集合
+        List<Integer> ages = new ArrayList<>();
+
+        //2.获取所有用户birthday集合,遍历生日集合 ,获取年龄集合
+        List<String> birthdays = memberService.findBirthdays();
+        for (String birthday : birthdays) {
+            Date date = DateUtil.parseYYYYMMDDDate(birthday);
+            int age = (new Date().getYear() - date.getYear());
+            ages.add(age);
+        }
+
+
+        //年龄在0-18的人数
+        int count1 = 0;
+
+        //年龄在18-30的人数
+        int count2 = 0;
+
+        //年龄在30-45的人数
+        int count3 = 0;
+
+        //年龄在45以上的人数
+        int count4 = 0;
+
+        //遍历年龄集合区分年龄段
+        for (Integer age : ages) {
+            if (age>=0 && age<=18) {
+                count1++;
+            }else if (age>18 && age<=30){
+                count2++;
+            }else if (age>30 && age<=45){
+                count3++;
+            }else {
+                count4++;
+            }
+
+        }
+
+        //封装List<Map<String,Object>> ageCount
+        Map<String,Object> agemap1 = new HashMap<>();
+        agemap1.put("name", ageNames.get(0));
+        agemap1.put("value",count1 );
+
+        Map<String,Object> agemap2 = new HashMap<>();
+        agemap2.put("name", ageNames.get(1));
+        agemap2.put("value",count2 );
+
+        Map<String,Object> agemap3 = new HashMap<>();
+        agemap3.put("name", ageNames.get(2));
+        agemap3.put("value",count3 );
+
+        Map<String,Object> agemap4 = new HashMap<>();
+        agemap4.put("name", ageNames.get(3));
+        agemap4.put("value",count4 );
+
+        List<Map<String,Object>> ageCount = new ArrayList<>();
+        ageCount.add(agemap1);
+        ageCount.add(agemap2);
+        ageCount.add(agemap3);
+        ageCount.add(agemap4);
+
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("ageNames",ageNames);
+        result.put("ageCount",ageCount);
+
+        return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_AGE_SUCCESS, result);
     }
 }
