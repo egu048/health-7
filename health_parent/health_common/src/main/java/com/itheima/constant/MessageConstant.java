@@ -69,4 +69,10 @@ public interface MessageConstant {
     static final String GET_BUSINESS_REPORT_FAIL = "获取运营统计数据失败";
     static final String GET_PACKAGE_LIST_SUCCESS = "查询套餐列表数据成功";
     static final String GET_PACKAGE_LIST_FAIL = "查询套餐列表数据失败";
+    static final String QUERY_USER_SUCCESS = "查询用户列表数据成功";
+    static final String QUERY_USER_Faile = "查询用户列表数据失败";
+    static final String ADD_USER_SUCCESS = "添加用户数据成功";
+    static final String ADD_USER_Faile = "添加用户数据失败";
+    static final String GET_USER_SUCCESS = "获取用户数据成功";
+    static final String GET_USER_Faile = "获取用户数据失败";
 }
