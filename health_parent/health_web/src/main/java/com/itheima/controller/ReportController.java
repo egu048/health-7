@@ -38,9 +38,9 @@ public class ReportController {
     private ReportService reportService;
 
     @GetMapping("/getMemberReport")
-    public Result getMemberReport(){
+    public Result getMemberReport(Map<String,String> map){
         // 调用memberService完成报表数据的查询 {months, memberCount}
-        Map<String,Object> result = memberService.getMemberReport();
+        Map<String,Object> result = memberService.getMemberReport(map);
         return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS, result);
     }
 

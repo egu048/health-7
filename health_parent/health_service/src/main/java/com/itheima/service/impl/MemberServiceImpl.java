@@ -37,9 +37,12 @@ public class MemberServiceImpl implements MemberService {
     /**
      * 会员数量统计
      * @return
+     * @param map
      */
     @Override
-    public Map<String, Object> getMemberReport() {
+    public Map<String, Object> getMemberReport(Map<String, String> map) {
+        String firstDate = map.get("firstDate");
+        String lastDate = map.get("lastDate");
         // 1. 获取上一年的时间, java中操作日期的对象，日历, 默认是获取当前系统时间的日期
         Calendar calendar = Calendar.getInstance();
         // 年的值减去1年，去年
