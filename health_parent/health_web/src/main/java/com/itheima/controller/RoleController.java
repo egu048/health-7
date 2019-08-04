@@ -88,7 +88,7 @@ public class RoleController {
      * @param id
      * @return
      */
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public Result delete(int id) {
         roleService.deleteRole(id);
         return new Result(true,MessageConstant.DELETE_ROLE_SUCCESS);
@@ -101,5 +101,10 @@ public class RoleController {
     public Result findAllToUser(){
         List<Role> roles=roleService.findAllToUser();
         return new Result(true,MessageConstant.QUERY_ROLE_SUCCESS,roles);
+    }
+    @PostMapping("/findRoleById")
+    public Result findRoleById(Integer id){
+        Role role = roleService.findById(id);
+        return new Result(true,MessageConstant.GET_USER_SUCCESS,role);
     }
 }

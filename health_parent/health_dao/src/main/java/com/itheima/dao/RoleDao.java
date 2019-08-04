@@ -2,6 +2,7 @@ package com.itheima.dao;
 
 import com.github.pagehelper.Page;
 import com.itheima.pojo.Role;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ public interface RoleDao {
     //新增角色
     void add(Role role);
 //
-    void addRolePermission(Integer roleId, Integer permissionId);
+    void addRolePermission(@Param("roleId") Integer roleId, @Param("permissionId") Integer permissionId);
 
-    void addRoleMenu(Integer roleId, Integer[] menuIds);
+    void addRoleMenu(@Param("roleId") Integer roleId, @Param("menuId") Integer menuId);
 
     Page<Role> findByCondition(String queryString);
 

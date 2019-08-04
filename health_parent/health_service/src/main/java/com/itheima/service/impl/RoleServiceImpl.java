@@ -46,7 +46,7 @@ public class RoleServiceImpl implements RoleService {
         // 遍历菜单的ID集合，循环插入
         if(null != menuIds){
             for (Integer menuId : menuIds) {
-                roleDao.addRoleMenu(roleId, menuIds);
+                roleDao.addRoleMenu(roleId, menuId);
             }
         }
     }
@@ -119,11 +119,10 @@ public class RoleServiceImpl implements RoleService {
                 roleDao.addRolePermission(roleId, permissionId);
             }
         }
-
         if(null != menuIds){
             // 循环添加新关系
             for (Integer menuId : menuIds) {
-                roleDao.addRolePermission(roleId, menuId);
+                roleDao.addRoleMenu(roleId, menuId);
             }
         }
     }
@@ -148,6 +147,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void deleteRole(int id) {
+        //删除角色,权限关系表中对应数据
+        roleDao.deleteRolePermissionByRoleId(id);
+        //删除角色,菜单关系表中对应数据
+        roleDao.deleteRoleMenuByRoleId(id);
+
         roleDao.deleteRole(id);
     }
     /**

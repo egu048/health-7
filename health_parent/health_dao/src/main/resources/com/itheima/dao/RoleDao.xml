@@ -7,8 +7,8 @@
         <selectKey resultType="int" order="AFTER" keyProperty="id">
             select last_insert_id()
         </selectKey>
-        insert into t_role(name,keyword)
-        values (#{name},#{keyword})
+        insert into t_role(name,keyword,description)
+        values (#{name},#{keyword},#{description})
     </insert>
     <!--维护角色,权限关系-->
     <insert id="addRolePermission" parameterType="int">
@@ -43,10 +43,10 @@
     </select>
     <!--更新角色-->
     <update id="update" parameterType="Role">
-        update t_role
-        set
+        update t_role set
             name=#{name},
-            keyword=#{keyword}
+            keyword=#{keyword},
+            description=#{description}
         where
           id=#{id}
     </update>
@@ -69,7 +69,7 @@
     </select>
 
     <delete id="deleteRole" parameterType="int">
-        delete from t_role where id={id}
+        delete from t_role where id=#{id}
     </delete>
     <select id="findAllToUser" resultType="Role">
         select * from t_role

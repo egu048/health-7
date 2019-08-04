@@ -105,7 +105,7 @@
                                             <el-row>
                                                 <el-col :span="24">
                                                     <el-form-item label="描述">
-                                                        <el-input v-model="formData.helpCode"/>
+                                                        <el-input v-model="formData.description"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
@@ -135,7 +135,7 @@
                                         </table>
                                     </div>
                                 </el-tab-pane>
-                                    <el-tab-pane label="菜单信息" name="last">
+                                    <el-tab-pane label="菜单信息" name="third">
                                         <div class="checkScrol">
                                             <table class="datatable">
                                                 <thead>
@@ -177,76 +177,80 @@
                         <el-dialog title="编辑检查组" :visible.sync="dialogFormVisible4Edit">
                             <template>
                                 <el-tabs v-model="activeName" type="card">
-                                    <el-tab-pane label="基本信息" name="first">
+                                    <el-tab-pane label="角色信息" name="first">
                                         <el-form label-position="right" label-width="100px">
                                             <el-row>
                                                 <el-col :span="12">
-                                                    <el-form-item label="编码">
-                                                        <el-input v-model="formData.code"/>
-                                                    </el-form-item>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <el-form-item label="名称">
+                                                    <el-form-item label="角色名称">
                                                         <el-input v-model="formData.name"/>
                                                     </el-form-item>
                                                 </el-col>
-                                            </el-row>
-                                            <el-row>
                                                 <el-col :span="12">
-                                                    <el-form-item label="适用性别">
-                                                        <el-select v-model="formData.sex">
-                                                            <el-option label="不限" value="0"></el-option>
-                                                            <el-option label="男" value="1"></el-option>
-                                                            <el-option label="女" value="2"></el-option>
-                                                        </el-select>
-                                                    </el-form-item>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <el-form-item label="助记码">
-                                                        <el-input v-model="formData.helpCode"/>
+                                                    <el-form-item label="角色关键字">
+                                                        <el-input v-model="formData.keyword"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
                                             <el-row>
                                                 <el-col :span="24">
-                                                    <el-form-item label="说明">
-                                                        <el-input v-model="formData.remark" type="textarea"></el-input>
-                                                    </el-form-item>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="24">
-                                                    <el-form-item label="注意事项">
-                                                        <el-input v-model="formData.attention" type="textarea"></el-input>
+                                                    <el-form-item label="描述">
+                                                        <el-input v-model="formData.description"/>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
                                         </el-form>
                                     </el-tab-pane>
-                                    <el-tab-pane label="检查项信息" name="second">
-										<div class="checkScrol">
-											<table class="datatable">
-												<thead>
-													<tr>
-														<th>选择</th>
-														<th>项目编码</th>
-														<th>项目名称</th>
-														<th>项目说明</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr v-for="c in tablePermissionData">
-														<td>
-                                                            <!--checkitemIds 有值，就会构选上, id有值且与value的值相同-->
-															<input :id="c.id" v-model="menuIds" type="checkbox" :value="c.id">
-														</td>
-														<td><label :for="c.id">{{c.code}}</label></td>
-														<td><label :for="c.id">{{c.name}}</label></td>
-														<td><label :for="c.id">{{c.remark}}</label></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
+                                    <el-tab-pane label="权限信息" name="second">
+                                        <div class="checkScrol">
+                                            <table class="datatable">
+                                                <thead>
+                                                <tr>
+                                                    <th>选择</th>
+                                                    <th>名称</th>
+                                                    <th>权限关键字</th>
+                                                    <th>描述</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="p in tablePermissionData">
+                                                    <td>
+                                                        <input :id="p.id" v-model="permissionIds" type="checkbox" :value="p.id">
+                                                    </td>
+                                                    <td><label :for="p.id">{{p.name}}</label></td>
+                                                    <td><label :for="p.id">{{p.keyword}}</label></td>
+                                                    <td><label :for="p.id">{{p.description}}</label></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </el-tab-pane>
+                                    <el-tab-pane label="菜单信息" name="third">
+                                        <div class="checkScrol">
+                                            <table class="datatable">
+                                                <thead>
+                                                <tr>
+                                                    <th>选择</th>
+                                                    <th>菜单名称</th>
+                                                    <th>访问路径</th>
+                                                    <th>路径</th>
+                                                    <th>优先级</th>
+                                                    <th>图标</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="m in tableMenuData">
+                                                    <td>
+                                                        <input :id="m.id" v-model="menuIds" type="checkbox" :value="m.id">
+                                                    </td>
+                                                    <td><label :for="m.id">{{m.name}}</label></td>
+                                                    <td><label :for="m.id">{{m.linkUrl}}</label></td>
+                                                    <td><label :for="m.id">{{m.path}}</label></td>
+                                                    <td><label :for="m.id">{{m.priority}}</label></td>
+                                                    <td><label :for="m.id">{{m.icon}}</label></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </el-tab-pane>
                                 </el-tabs>
                             </template>
@@ -272,8 +276,8 @@
                     total:100,
                     queryString:null,
                 },
-                permissionIds: [],//新建窗口权限对应的数据
                 menuIds: [],//新建窗口权限对应的数据
+                permissionIds: [],//新建窗口权限对应的数据
 
                 dataList: [],//列表数据
                 formData: {},//表单数据
@@ -352,16 +356,15 @@
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+                    // 弹出编辑窗口
+                    this.dialogFormVisible4Edit = true;
                     // 获取角色的编号
                     var roleId = row.id;
                     // 表单初始化
                     this.resetForm();
-
-                    axios.get('/role/findRoleById.do?id=' + roleId).then(res => {
+                    // 回显数据
+                    axios.post('/role/findRoleById.do?id=' + roleId).then(res => {
                         if(res.data.flag){
-                            // 弹出编辑窗口
-                            this.dialogFormVisible4Edit = true;
-                            // 回显数据
                             this.formData = res.data.data;
                             // 加载菜单与权限信息
                             this.loadMenuAndPermission();
@@ -395,14 +398,26 @@
                 handleDelete(row) {
                     // 获取角色的编号
                     var roleId = row.id;
-                    axios.get("/role/delete?id="+roleId).then((result)=>{
-                        this.$message({
-                            message: res.data.message,
-                            type: res.data.flag?'success':'error'
+                    this.$confirm('此操作将【永久删除】该项, 是否确定?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 点击了确定后执行的代码
+                        //确定，发送ajax请求删除，传递要删除ID
+                        // 传参的数量较少时可以用?
+                        // 数量较多，封装到json对象中
+                        axios.post("/role/delete.do?id="+roleId).then((res)=>{
+                            this.$message({
+                                message: res.data.message,
+                                type: res.data.flag?'success':'error'
+                            });
+                            if (res.data.flag) {
+                                this.findPage();
+                            }
                         });
-                        if (result.data.flag) {
-                            this.findPage();
-                        }
+                    }).catch(() => {
+                        // 点击取消后执行的代码
                     });
                 },
                 // 加载菜单与权限信息
@@ -412,7 +427,6 @@
                         // 成功
                         if(res.data.flag){
                             this.tablePermissionData = res.data.data
-                            this.menuIds = res.data.data.findRoleIdByAll;
                         }else{
                             this.$message({
                                 message: res.data.message,
