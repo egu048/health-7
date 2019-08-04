@@ -20,7 +20,7 @@
     <bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <!--七子表达式, 触发的时机，时间的表达式，跟当前的系统时间对比，如果匹配则触发-->
         <!--秒 分 时 日 月 周 年-->
-        <property name="cronExpression" value="0/30 * * * * ? *"/>
+        <property name="cronExpression" value="0 0 2 L * ? *"/>
         <!--绑定触发时调用任务策略-->
         <property name="jobDetail" ref="jobDetail"/>
     </bean>
@@ -34,6 +34,4 @@
             </list>
         </property>
     </bean>
-
-
 </beans>

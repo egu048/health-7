@@ -34,7 +34,7 @@ public class PackageController {
         if (str == null) {
             List<Package> list = packageService.findAll();
             list.forEach(pcg ->{
-                pcg.setImg(QiNiuUtil.DOMAIN + "/" + pcg.getImg());
+                pcg.setImg(QiNiuUtil.DOMAIN+ pcg.getImg());
             });
             str =JSON.toJSONString(list);
             jedis.set("list",str);
@@ -46,19 +46,18 @@ public class PackageController {
     @GetMapping("/getPackageDetail")
     public Result getPackageDetail(int id){
         Jedis jedis = jedisPool.getResource();
-        String str2= jedis.get("list2");
+        String str2= jedis.get("list2"+id);
         if (str2 == null) {
             //调用业务服务查询
             Package pcg = packageService.getPackageDetail(id);
             //拼接图片
-            pcg.setImg(QiNiuUtil.DOMAIN + "/" +pcg.getImg());
+            pcg.setImg(QiNiuUtil.DOMAIN+pcg.getImg());
             str2 = JSON.toJSONString(pcg);
-            jedis.set("list2",str2);
+            jedis.set("list2"+id,str2);
             return new Result(true,MessageConstant.GET_SETMEAL_LIST_SUCCESS,pcg);
         }
         JSONObject jsonObject = JSON.parseObject(str2);
-        String lists = jsonObject.getString("lists");
-        return new Result(true,MessageConstant.GET_SETMEAL_LIST_SUCCESS,lists);
+        return new Result(true,MessageConstant.GET_SETMEAL_LIST_SUCCESS,jsonObject);
     }
 
     @GetMapping("/findById")

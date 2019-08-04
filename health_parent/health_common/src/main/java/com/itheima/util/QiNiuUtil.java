@@ -17,16 +17,16 @@ import java.util.List;
 
 public class QiNiuUtil {
 
-    private static final String ACCESSKEY = "SFEru-42dYFEvmHot4dz1UhsepDmOPDql0AfFt8p";
-    private static final String SECRETKEY = "aCzett8JLbldF42PhQGzw6ymQyWreY4Fu8drPKG3";
-    private static final String BUCKET = "sz67";
-    public static final String DOMAIN= "http://pv19cbf2x.bkt.clouddn.com";
+    private static final String ACCESSKEY = "Yzkc-juLuV_l1ML8W3A2U9_mmH_dmnybeawyvkbp";
+    private static final String SECRETKEY = "BMoS9y96Wn5nvpRKyZJjyVEVEJ3SkXJ8AzXt9vmd";
+    private static final String BUCKET = "health";
+    public static final String DOMAIN= "http://puyvuwjh9.bkt.clouddn.com/";
 
     public static void main(String[] args) {
-        uploadFile("C:\\Users\\Eric\\Desktop\\file\\timg.jpg","迪丽热巴.jpg");
+
+        uploadFile("C:\\xiangmu\\health\\health_parent\\health_web\\src\\main\\webapp\\img\\user1-128x128.jpg","user1-128x128.jpg");
         //removeFiles("20190529083159.jpg","20190529083241.jpg");
     }
-
     /**
      * 批量删除
      * @param filenames 需要删除的文件名列表
@@ -70,7 +70,7 @@ public class QiNiuUtil {
         UploadManager uploadManager = getUploadManager();
         String upToken = getToken();
         try {
-            Response response = uploadManager.put(localFilePath, savedFilename, upToken);
+            Response response = uploadManager.put(localFilePath, null, upToken);
             //解析上传成功的结果
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
             System.out.println(String.format("key=%s, hash=%s",putRet.key, putRet.hash));
