@@ -22,9 +22,9 @@ public interface MemberService {
     /**
      * 会员数量统计
      * @return
-     * @param map
+     * @param
      */
-    Map<String,Object> getMemberReport(Map<String, String> map);
+    Map<String,Object> getMemberReport(String startDate, String endDate);
 
     /**
      * 会员男女占比

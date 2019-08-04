@@ -37,29 +37,34 @@ public class MemberServiceImpl implements MemberService {
     /**
      * 会员数量统计
      * @return
-     * @param map
+     * @param
      */
     @Override
-    public Map<String, Object> getMemberReport(Map<String, String> map) {
-        String firstDate = map.get("firstDate");
-        String lastDate = map.get("lastDate");
-        // 1. 获取上一年的时间, java中操作日期的对象，日历, 默认是获取当前系统时间的日期
-        Calendar calendar = Calendar.getInstance();
-        // 年的值减去1年，去年
-        calendar.add(Calendar.YEAR, -1);
-        // 2. 遍历12个月，计算每个月的会员数量
+    public Map<String, Object> getMemberReport(String startDate, String endDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Calendar beginCal = Calendar.getInstance();
+        Calendar endCal = Calendar.getInstance();
+        Date begin = null;
+        Date end = null;
+        try {
+            begin = sdf.parse(startDate);
+            beginCal.setTime(begin);
+            end=sdf.parse(endDate);
+            endCal.setTime(end);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int monthsCount=(endCal.get(Calendar.YEAR)-beginCal.get(Calendar.YEAR))*12+(endCal.get(Calendar.MONTH)-beginCal.get(Calendar.MONTH))+1;
+        String month = startDate;
         List<String> months = new ArrayList<String>();
         List<Integer> memberCount = new ArrayList<Integer>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-        String month = "";
-        for(int i = 0; i < 12; i++){
-            // 当前要计算的月份, 是否最后一天
-            calendar.add(Calendar.MONTH,1);
+        for (int i = 0; i < monthsCount; i++) {
             // 3. 封装到月份数所 months
-            month = sdf.format(calendar.getTime());
             months.add(month);
             // 4. 封装每个月的会员总数到memberCount
             memberCount.add(memberDao.findMemberCountBeforeDate(month + "-31"));
+            beginCal.add(Calendar.MONTH,1);
+            month = sdf.format(beginCal.getTime());
         }
         Map<String,Object> result = new HashMap<String,Object>();
         result.put("months", months);
